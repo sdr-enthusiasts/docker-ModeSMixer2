@@ -62,10 +62,12 @@ then
     URL_MODESMIXER_DOWNLOAD=$(curl "${URL_XDECO_DOWNLOAD}" | grep -iE "modesmixer2_.*_x86_64_.*\.tgz" | grep -ioE '<a href=".*">' | grep -ioE '"https:\/\/.*"' | cut -d '"' -f 2 | head -1 | sed 's,/open?,/uc?,g' | sed 's/$/\&export=download/g')
 
     # Install old version of OpenSSL, required by this architecture's ModeSMixer2 binary
-    echo "deb http://deb.debian.org/debian jessie main contrib non-free" > /etc/apt/sources.list.d/jessie.list
-    echo "deb-src http://deb.debian.org/debian jessie main contrib non-free" >> /etc/apt/sources.list.d/jessie.list
-    echo "deb http://security.debian.org/ jessie/updates main contrib non-free" >> /etc/apt/sources.list.d/jessie.list
-    echo "deb-src http://security.debian.org/ jessie/updates main contrib non-free" >> /etc/apt/sources.list.d/jessie.list
+    {
+      echo "deb http://deb.debian.org/debian jessie main contrib non-free"
+      echo "deb-src http://deb.debian.org/debian jessie main contrib non-free"
+      echo "deb http://security.debian.org/ jessie/updates main contrib non-free"
+      echo "deb-src http://security.debian.org/ jessie/updates main contrib non-free"
+    } > /etc/apt/sources.list.d/jessie.list
     apt-get update
     apt-get install --no-install-recommends -y libssl1.0.0
 
