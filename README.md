@@ -86,7 +86,7 @@ Ports should be opened as required by your `modesmixer2` command line arguments.
 
 ## Logging
 
-* All processes are logged to the container's stdout, and can be viewed with `docker logs [-f] container`.
+All processes are logged to the container's stdout, and can be viewed with `docker logs [-f] container`.
 
 ## Getting help
 
