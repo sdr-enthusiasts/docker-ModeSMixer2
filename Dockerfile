@@ -4,6 +4,8 @@ ENV URL_XDECO_DOWNLOAD="http://xdeco.org/?page_id=30"
 
 COPY imagebuildscripts/install_modesmixer2.sh /tmp/install_modesmixer2.sh
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 RUN set -x && \
     apt-get update && \
     apt-get install --no-install-recommends -y \
