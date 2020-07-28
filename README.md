@@ -12,9 +12,10 @@ For more info, see the project's website: <http://xdeco.org>.
 
 Currently, this image should pull and run on the following architectures:
 
-* ```amd64```: Linux x86-64
-* ```arm32v7```, ```armv7l```: ARMv7 32-bit (eg: Odroid HC1/HC2/XU4, RPi 2/3/4)
-* ```arm64v8```, ```aarch64```: ARMv8 64-bit (eg: RPi 4)
+* `amd64`: Linux x86-64
+* `i386`: Linux x86 (32-bit)
+* `arm32v7`, `armv7l`: ARMv7 32-bit (eg: Odroid HC1/HC2/XU4, RPi 2/3/4)
+* `arm64v8`, `aarch64`: ARMv8 64-bit (eg: RPi 4)
 
 ## Up and Running - `docker run`
 
