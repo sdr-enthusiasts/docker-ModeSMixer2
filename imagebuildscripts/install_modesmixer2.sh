@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 # Verbosity (x)
-# Exit on any error (e)
 set -x
 
 # If cross-building, we have no way to determine this without looking at the installed binaries using libmagic/file
