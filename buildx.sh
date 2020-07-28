@@ -2,7 +2,7 @@
 
 REPO=mikenye
 IMAGE=modesmixer2
-PLATFORMS="linux/amd64,linux/arm/v7"
+PLATFORMS="linux/amd64,linux/arm/v7,linux/arm64"
 
 docker context use x86_64
 export DOCKER_CLI_EXPERIMENTAL="enabled"
