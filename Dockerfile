@@ -29,6 +29,6 @@ RUN set -x && \
     find /var/log -type f -exec truncate -s 0 {} \; && \
     # Finish
     modesmixer2 --help > /dev/null 2>&1 && \
-    cat /VERSIONS && \
+    cat /VERSIONS
 
 ENTRYPOINT [ "/usr/local/bin/modesmixer2" ]
