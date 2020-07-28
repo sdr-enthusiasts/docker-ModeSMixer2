@@ -42,7 +42,7 @@ docker run \
   mikenye/modesmixer2:latest \
     --inConnect=readsb:30005 \
     --metric \
-    --web=8081 \
+    --web=8081
 ```
 
 You can then hit the web interface at <http://dockerhost:8081>.
