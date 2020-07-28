@@ -4,7 +4,7 @@
 
 ModeSMixer2 is versatile console application for combining and rebroadcasting feeds with Mode-S data in a variety of formats.
 
-ModeSMixer2 has ability to receive data via network from Mode-S decoder for RTLSDR devices as dump1090, rtl1090, modesdeco2, ADSB# or some other program producing and outputting Mode-S data over network.
+ModeSMixer2 has ability to receive data via network from Mode-S decoder for RTLSDR devices as [readsb](https://hub.docker.com/r/mikenye/readsb), [dump1090](https://hub.docker.com/r/mikenye/piaware), rtl1090, modesdeco2, ADSB# or some other program producing and outputting Mode-S data over network.
 
 For more info, see the project's website: <http://xdeco.org>.
 
