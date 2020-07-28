@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 # Verbosity (x)
-# Exit on any error (e)
 set -x
 
 # If cross-building, we have no way to determine this without looking at the installed binaries using libmagic/file
@@ -55,47 +54,31 @@ if echo "${FILEOUTPUT}" | grep "ARM" > /dev/null; then
 
 fi
 
-echo "========== Attempting build for ${ARCH} =========="
+echo "========== Preparing to install ModeSMixer2 for ${ARCH} =========="
 
 if [ "$ARCH" = "amd64" ]
 then
     URL_MODESMIXER_DOWNLOAD=$(curl "${URL_XDECO_DOWNLOAD}" | grep -iE "modesmixer2_.*_x86_64_.*\.tgz" | grep -ioE '<a href=".*">' | grep -ioE '"https:\/\/.*"' | cut -d '"' -f 2 | head -1 | sed 's,/open?,/uc?,g' | sed 's/$/\&export=download/g')
 
-    # Install old version of OpenSSL, required by ModeSMixer2
-    echo "deb http://deb.debian.org/debian jessie main contrib non-free" > /etc/apt/sources.list.d/jessie.list
-    echo "deb-src http://deb.debian.org/debian jessie main contrib non-free" >> /etc/apt/sources.list.d/jessie.list
-    echo "deb http://security.debian.org/ jessie/updates main contrib non-free" >> /etc/apt/sources.list.d/jessie.list
-    echo "deb-src http://security.debian.org/ jessie/updates main contrib non-free" >> /etc/apt/sources.list.d/jessie.list
+    # Install old version of OpenSSL, required by this architecture's ModeSMixer2 binary
+    {
+      echo "deb http://deb.debian.org/debian jessie main contrib non-free"
+      echo "deb-src http://deb.debian.org/debian jessie main contrib non-free"
+      echo "deb http://security.debian.org/ jessie/updates main contrib non-free"
+      echo "deb-src http://security.debian.org/ jessie/updates main contrib non-free"
+    } > /etc/apt/sources.list.d/jessie.list
     apt-get update
     apt-get install --no-install-recommends -y libssl1.0.0
-
-    # Download & install modesmixer2
-    curl --location -o /tmp/modesmixer2.tgz "$URL_MODESMIXER_DOWNLOAD"
-    mkdir -p /opt/modesmixer2
-    tar xvf /tmp/modesmixer2.tgz -C /opt/modesmixer2
-    ln -s /opt/modesmixer2/modesmixer2 /usr/local/bin/modesmixer2
-
 
 elif [ "$ARCH" = "armhf" ]
 then
     URL_MODESMIXER_DOWNLOAD=$(curl "${URL_XDECO_DOWNLOAD}" | grep -iE "modesmixer2_rpi4_.*\.tgz" | grep -ioE '<a href=".*">' | grep -ioE '"https:\/\/.*"' | cut -d '"' -f 2 | head -1 | sed 's,/open?,/uc?,g' | sed 's/$/\&export=download/g')
+    apt-get install --no-install-recommends -y libssl1.1
 
-    # # Install old version of OpenSSL, required by ModeSMixer2
-    # echo "deb http://deb.debian.org/debian jessie main contrib non-free" > /etc/apt/sources.list.d/jessie.list
-    # echo "deb-src http://deb.debian.org/debian jessie main contrib non-free" >> /etc/apt/sources.list.d/jessie.list
-    # echo "deb http://security.debian.org/ jessie/updates main contrib non-free" >> /etc/apt/sources.list.d/jessie.list
-    # echo "deb-src http://security.debian.org/ jessie/updates main contrib non-free" >> /etc/apt/sources.list.d/jessie.list
-    # apt-get update
-    # apt-get install --no-install-recommends -y libssl1.0.0
-
-    # Download & install modesmixer2
-    curl --location -o /tmp/modesmixer2.tgz "$URL_MODESMIXER_DOWNLOAD"
-    mkdir -p /opt/modesmixer2
-    tar xvf /tmp/modesmixer2.tgz -C /opt/modesmixer2
-    ln -s /opt/modesmixer2/modesmixer2 /usr/local/bin/modesmixer2
-
-# elif [ "$ARCH" = "aarch64" ]
-# then
+elif [ "$ARCH" = "aarch64" ]
+then
+    URL_MODESMIXER_DOWNLOAD=$(curl "${URL_XDECO_DOWNLOAD}" | grep -iE "modesmixer2_orange-pi-pc2_.*\.tgz" | grep -ioE '<a href=".*">' | grep -ioE '"https:\/\/.*"' | cut -d '"' -f 2 | head -1 | sed 's,/open?,/uc?,g' | sed 's/$/\&export=download/g')
+    apt-get install --no-install-recommends -y libssl1.1
     
 else
     echo ""
@@ -106,3 +89,11 @@ else
     exit 1
     
 fi
+
+echo "========== Installing ModeSMixer2 for ${ARCH} =========="
+
+# Download & install modesmixer2
+curl --location -o /tmp/modesmixer2.tgz "$URL_MODESMIXER_DOWNLOAD"
+mkdir -p /opt/modesmixer2
+tar xvf /tmp/modesmixer2.tgz -C /opt/modesmixer2
+ln -s /opt/modesmixer2/modesmixer2 /usr/local/bin/modesmixer2
