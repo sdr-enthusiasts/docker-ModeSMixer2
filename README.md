@@ -39,7 +39,7 @@ docker run \
   --name mm2 \
   --restart=always \
   -it \
-  -p 8081:8081
+  -p 8081:8081 \
   mikenye/modesmixer2:latest \
     --inConnect=readsb:30005 \
     --metric \
