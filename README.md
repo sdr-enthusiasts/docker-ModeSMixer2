@@ -43,7 +43,7 @@ docker run \
   mikenye/modesmixer2:latest \
     --inConnect=readsb:30005 \
     --metric \
-    --web=8081
+    --web=8081 \
     --location=LAT:LONG
 ```
 
