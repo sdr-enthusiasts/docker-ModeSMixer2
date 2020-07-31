@@ -44,6 +44,7 @@ docker run \
     --inConnect=readsb:30005 \
     --metric \
     --web=8081
+    --location=LAT:LONG
 ```
 
 You can then hit the web interface at <http://dockerhost:8081>.
@@ -75,6 +76,7 @@ services:
       - --inConnect=readsb:30005
       - --metric
       - --web=8081
+      - --location=LAT:LONG
 ```
 
 ## Environment Variables
