@@ -15,7 +15,13 @@ if [[ -f /checkpoints/dmtcp_restart_script.sh ]]; then
     echo ""
     echo Resuming from checkpoint...
     echo ""
-    /checkpoints/dmtcp_restart_script.sh
+    
+    /usr/local/bin/dmtcp_restart \
+        --no-strict-checking \
+        --join-coordinator \
+        --quiet --quiet \
+        --ckptdir /checkpoints \
+        /checkpoint/ckpt_*.dmtcp
 
 else
     /usr/local/bin/dmtcp_launch \
