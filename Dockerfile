@@ -13,17 +13,19 @@ RUN set -x && \
         curl \
         file \
         netbase \
-        git ca-certificates build-essential \
+        git \
+        build-essential \
         && \
     # Install DMTCP
     git clone https://github.com/dmtcp/dmtcp.git /src/dmtcp && \
+    ./configure && \
     make && \
     make install && \
     apt-get remove -y \
         git \
         build-essential \
         && \
-    # Install ModeSMixer2 & get version
+    # Install ModeSMixer2 and get version
     bash -x /tmp/install_modesmixer2.sh && \
     modesmixer2 --help | head -1 >> /VERSIONS || true && \
     # Clean up
