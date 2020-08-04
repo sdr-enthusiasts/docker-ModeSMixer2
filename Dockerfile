@@ -37,4 +37,7 @@ RUN set -x && \
     modesmixer2 --help > /dev/null 2>&1 && \
     cat /VERSIONS
 
-ENTRYPOINT [ "/usr/local/bin/modesmixer2" ]
+ENTRYPOINT [ "/usr/local/bin/dmtcp_launch" ]
+
+CMD [ "--no-coordinator", "--no-gzip", "--ckptdir", "/data", "--modity-env", "/usr/local/bin/modesmixer2" ]
+
