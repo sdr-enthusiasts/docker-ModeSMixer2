@@ -21,7 +21,7 @@ if [[ -f /checkpoints/dmtcp_restart_script.sh ]]; then
         --join-coordinator \
         --quiet --quiet \
         --ckptdir /checkpoints \
-        /checkpoint/ckpt_*.dmtcp
+        /checkpoints/ckpt_*.dmtcp
 
 else
     /usr/local/bin/dmtcp_launch \
