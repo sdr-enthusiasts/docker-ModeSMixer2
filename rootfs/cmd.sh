@@ -3,6 +3,9 @@
 
 MM2_ARGS=$@
 
+# wait for dmtcp_coordinator
+sleep 10
+
 echo ""
 echo 'ModeSMixer command line arguments:' $MM2_ARGS
 echo ""
