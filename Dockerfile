@@ -19,12 +19,15 @@ RUN set -x && \
     git clone https://github.com/dmtcp/dmtcp.git /src/dmtcp && \
     make && \
     make install && \
+    apt-get remove -y \
+        git \
+        build-essential \
+        && \
     # Install ModeSMixer2 & get version
     /tmp/install_modesmixer2.sh && \
     modesmixer2 --help | head -1 >> /VERSIONS || true && \
     # Clean up
     apt-get remove -y \
-        git build-essential \
         ca-certificates \
         curl \
         file \
@@ -34,7 +37,7 @@ RUN set -x && \
     rm -rf /var/lib/apt/lists/* /tmp/* && \
     find /var/log -type f -exec truncate -s 0 {} \; && \
     # Finish
-    # modesmixer2 --help > /dev/null 2>&1 && \
+    modesmixer2 --help > /dev/null 2>&1 && \
     cat /VERSIONS
 
 ENTRYPOINT [ "/usr/local/bin/dmtcp_launch" ]
