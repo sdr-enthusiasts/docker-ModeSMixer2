@@ -18,21 +18,21 @@ RUN set -x && \
         && \
     # Install DMTCP
     git clone https://github.com/dmtcp/dmtcp.git /src/dmtcp && \
+    pushd /src/dmtcp && \
     ./configure && \
     make && \
     make install && \
-    apt-get remove -y \
-        git \
-        build-essential \
-        && \
+    popd &&\
     # Install ModeSMixer2 and get version
     bash -x /tmp/install_modesmixer2.sh && \
-    modesmixer2 --help | head -1 >> /VERSIONS || true && \
+    (modesmixer2 --help | head -1 >> /VERSIONS || true) && \
     # Clean up
     apt-get remove -y \
+        build-essential \
         ca-certificates \
         curl \
         file \
+        git \
         && \
     apt-get autoremove -y && \
     apt-get clean -y
