@@ -11,6 +11,10 @@ echo 'ModeSMixer command line arguments:' $MM2_ARGS
 echo ""
 
 if [[ -f /checkpoints/dmtcp_restart_script.sh ]]; then
+
+    echo ""
+    echo Resuming from checkpoint...
+    echo ""
     /checkpoints/dmtcp_restart_script.sh
 
 else
