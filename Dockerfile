@@ -35,10 +35,10 @@ RUN set -x && \
     apt-get autoremove -y && \
     apt-get clean -y && \
     rm -rf /var/lib/apt/lists/* /tmp/* && \
-    find /var/log -type f -exec truncate -s 0 {} \; && \
+    find /var/log -type f -exec truncate -s 0 {} \;
     # Finish
-    modesmixer2 --help > /dev/null 2>&1 && \
-    cat /VERSIONS
+    #modesmixer2 --help > /dev/null 2>&1 && \
+    #cat /VERSIONS
 
 ENTRYPOINT [ "/usr/local/bin/dmtcp_launch" ]
 
