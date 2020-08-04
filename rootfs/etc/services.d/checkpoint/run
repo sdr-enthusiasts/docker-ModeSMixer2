@@ -1,0 +1,8 @@
+#!/usr/bin/with-contenv bash
+#shellcheck shell=bash
+
+sleep 60
+
+/usr/local/bin/dmtcp_command \
+    -bc \
+    2>&1 | awk -W Interactive '{print "[checkpoint] " $0}'
