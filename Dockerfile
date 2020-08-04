@@ -1,6 +1,7 @@
 FROM debian:stable-slim
 
-ENV URL_XDECO_DOWNLOAD="http://xdeco.org/?page_id=30"
+ENV URL_XDECO_DOWNLOAD="http://xdeco.org/?page_id=30" \
+    S6_CMD_ARG0="/cmd.sh"
 
 COPY imagebuildscripts/install_modesmixer2.sh /tmp/install_modesmixer2.sh
 
