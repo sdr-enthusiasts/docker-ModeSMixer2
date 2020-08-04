@@ -15,6 +15,7 @@ RUN set -x && \
         netbase \
         git \
         build-essential \
+        gnupg2 \
         && \
     # Install DMTCP
     git clone https://github.com/dmtcp/dmtcp.git /src/dmtcp && \
@@ -23,6 +24,8 @@ RUN set -x && \
     make && \
     make install && \
     popd &&\
+    # Install s6-overlay
+    curl -s https://raw.githubusercontent.com/mikenye/deploy-s6-overlay/master/deploy-s6-overlay.sh | sh && \
     # Install ModeSMixer2 and get version
     bash -x /tmp/install_modesmixer2.sh && \
     (modesmixer2 --help | head -1 >> /VERSIONS || true) && \
@@ -33,6 +36,7 @@ RUN set -x && \
         curl \
         file \
         git \
+        gnupg2 \
         && \
     apt-get autoremove -y && \
     apt-get clean -y
