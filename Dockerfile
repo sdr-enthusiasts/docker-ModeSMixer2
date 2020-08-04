@@ -24,7 +24,7 @@ RUN set -x && \
         build-essential \
         && \
     # Install ModeSMixer2 & get version
-    /tmp/install_modesmixer2.sh && \
+    bash -x /tmp/install_modesmixer2.sh && \
     modesmixer2 --help | head -1 >> /VERSIONS || true && \
     # Clean up
     apt-get remove -y \
