@@ -1,14 +1,14 @@
 #!/usr/bin/with-contenv bash
 #shellcheck shell=bash
 
-if [[ -f /checkpoints/dmtcp_restart_script.sh ]]; then
+#if [[ -f /checkpoints/dmtcp_restart_script.sh ]]; then
 
-    sleep 3600
+#    sleep 3600
     
-else
+#else
 
     /usr/local/bin/dmtcp_coordinator \
         --ckptdir /checkpoints \
         2>&1 | awk -W Interactive '{print "[dmtcp_coordinator] " $0}'
     
-fi
+#fi
