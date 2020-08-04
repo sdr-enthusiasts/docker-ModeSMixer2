@@ -51,3 +51,4 @@ RUN set -x && \
 
 # CMD [ "--no-coordinator", "--no-gzip", "--ckptdir", "/data", "--modify-env", "/usr/local/bin/modesmixer2" ]
 
+ENTRYPOINT [ "/init" ]
