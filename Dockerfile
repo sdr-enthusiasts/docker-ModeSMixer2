@@ -34,7 +34,7 @@ RUN set -x && \
     rm -rf /var/lib/apt/lists/* /tmp/* && \
     find /var/log -type f -exec truncate -s 0 {} \; && \
     # Finish
-    modesmixer2 --help > /dev/null 2>&1 && \
+    # modesmixer2 --help > /dev/null 2>&1 && \
     cat /VERSIONS
 
 ENTRYPOINT [ "/usr/local/bin/dmtcp_launch" ]
