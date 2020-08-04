@@ -19,7 +19,7 @@ RUN set -x && \
         gnupg2 \
         && \
     # Install DMTCP
-    git clone https://github.com/dmtcp/dmtcp.git /src/dmtcp && \
+    git clone -b 2.6 https://github.com/dmtcp/dmtcp.git /src/dmtcp && \
     pushd /src/dmtcp && \
     ./configure && \
     make && \
