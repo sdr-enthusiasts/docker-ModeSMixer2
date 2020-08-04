@@ -3,5 +3,4 @@
 
 /usr/local/bin/dmtcp_coordinator \
     --ckptdir /checkpoints \
-    --interval 60 \
     2>&1 | awk -W Interactive '{print "[dmtcp_coordinator] " $0}'
