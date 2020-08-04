@@ -26,7 +26,6 @@ if [[ -f /checkpoints/dmtcp_restart_script.sh ]]; then
 else
     /usr/local/bin/dmtcp_launch \
         --join-coordinator \
-        --modify-env \
         --quiet --quiet \
         --ckptdir /checkpoints \
         /usr/local/bin/modesmixer2 $MM2_ARGS
