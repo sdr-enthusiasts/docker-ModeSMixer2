@@ -1,0 +1,2 @@
+#path recurse account fmode dmode
+/cmd.sh false root 0744 0755
