@@ -23,6 +23,7 @@ RUN set -x && \
     ./configure && \
     make && \
     make install && \
+    mkdir -p /checkpoints && \
     popd &&\
     # Install s6-overlay
     curl -s https://raw.githubusercontent.com/mikenye/deploy-s6-overlay/master/deploy-s6-overlay.sh | sh && \
@@ -46,7 +47,7 @@ RUN set -x && \
     #modesmixer2 --help > /dev/null 2>&1 && \
     #cat /VERSIONS
 
-ENTRYPOINT [ "/usr/local/bin/dmtcp_launch" ]
+# ENTRYPOINT [ "/usr/local/bin/dmtcp_launch" ]
 
-CMD [ "--no-coordinator", "--no-gzip", "--ckptdir", "/data", "--modify-env", "/usr/local/bin/modesmixer2" ]
+# CMD [ "--no-coordinator", "--no-gzip", "--ckptdir", "/data", "--modify-env", "/usr/local/bin/modesmixer2" ]
 
