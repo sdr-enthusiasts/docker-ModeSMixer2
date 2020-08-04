@@ -11,7 +11,7 @@ echo ""
 /usr/local/bin/dmtcp_launch \
     --join-coordinator \
     --modify-env \
-    --quiet \
+    --quiet --quiet \
     /usr/local/bin/modesmixer2 $MM2_ARGS
 
 #2>&1 | awk -W Interactive '{print "[cmd] " $0}'
