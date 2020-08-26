@@ -33,6 +33,7 @@ for p in "${LINUX_PLATFORMS[@]}"; do
     ;;
   arm64)
     CONTEXT="arm64"
+    ;;
   *)
     echo "ERROR: unknown context"
     exit 1
