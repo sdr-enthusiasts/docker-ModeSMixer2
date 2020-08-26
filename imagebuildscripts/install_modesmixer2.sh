@@ -98,6 +98,11 @@ fi
 
 echo "========== Installing ModeSMixer2 for ${ARCH} =========="
 
+# Install prerequisites
+apt-get install --no-install-recommends -y \
+  libc6 \
+  libstdc++6
+
 # Get google drive file ID
 if echo $URL_MODESMIXER_DOWNLOAD | grep -oP 'open\?id=\K([0-9a-zA-Z\-_])+' > /dev/null 2>&1; then
   MODESMIXER_GDRIVE_FILE_ID=$(echo "$URL_MODESMIXER_DOWNLOAD" | grep -oP 'open\?id=\K([0-9a-zA-Z\-_])+')
@@ -108,6 +113,7 @@ else
   exit 1
 fi
 
+# Create a direct download link from gdrive
 URL_MODESMIXER_DOWNLOAD_DIRECT="https://drive.google.com/uc?export=download&id=${MODESMIXER_GDRIVE_FILE_ID}"
 
 # Download & install modesmixer2
