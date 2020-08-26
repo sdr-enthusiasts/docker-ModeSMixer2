@@ -125,3 +125,4 @@ ln -s /opt/modesmixer2/modesmixer2 /usr/local/bin/modesmixer2
 
 # Test
 modesmixer2 --help
+echo "$?"
