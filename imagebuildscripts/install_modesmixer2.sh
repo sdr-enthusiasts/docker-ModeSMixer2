@@ -124,5 +124,5 @@ tar xvf /tmp/modesmixer2.tgz -C /opt/modesmixer2
 ln -s /opt/modesmixer2/modesmixer2 /usr/local/bin/modesmixer2
 
 # Test
+set -e
 modesmixer2 --help
-echo "$?"
