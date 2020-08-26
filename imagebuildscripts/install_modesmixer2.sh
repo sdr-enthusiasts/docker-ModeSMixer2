@@ -58,8 +58,8 @@ echo "========== Preparing to install ModeSMixer2 for ${ARCH} =========="
 
 if [ "$ARCH" = "amd64" ]
 then
-    URL_MODESMIXER_DOWNLOAD=$(curl "${URL_XDECO_DOWNLOAD}" | grep -iE "modesmixer2_.*_x86_64_.*\.tgz" | grep -ioE '<a href=".*">' | grep -ioE '"https:\/\/.*"' | cut -d '"' -f 2 | head -1 | sed 's,/open?,/uc?,g' | sed 's/$/\&export=download/g')
-
+    URL_MODESMIXER_DOWNLOAD=$(curl "${URL_XDECO_DOWNLOAD}" | grep -iE "modesmixer2_.*_x86_64_.*\.tgz" | grep -ioE '<a href=".*">' | grep -ioE '"https:\/\/.*"' | cut -d '"' -f 2 | head -1)
+    
     # Install old version of OpenSSL, required by this architecture's ModeSMixer2 binary
     {
       echo "deb http://deb.debian.org/debian jessie main contrib non-free"
@@ -72,18 +72,18 @@ then
 
 elif [ "$ARCH" = "x86" ]
 then
-    URL_MODESMIXER_DOWNLOAD=$(curl "${URL_XDECO_DOWNLOAD}" | grep -iE "modesmixer2_.*_i386_.*\.tgz" | grep -ioE '<a href=".*">' | grep -ioE '"https:\/\/.*"' | cut -d '"' -f 2 | head -1 | sed 's,/open?,/uc?,g' | sed 's/$/\&export=download/g')
+    URL_MODESMIXER_DOWNLOAD=$(curl "${URL_XDECO_DOWNLOAD}" | grep -iE "modesmixer2_.*_i386_.*\.tgz" | grep -ioE '<a href=".*">' | grep -ioE '"https:\/\/.*"' | cut -d '"' -f 2 | head -1)
     apt-get update
     apt-get install --no-install-recommends -y libssl1.1
 
 elif [ "$ARCH" = "armhf" ]
 then
-    URL_MODESMIXER_DOWNLOAD=$(curl "${URL_XDECO_DOWNLOAD}" | grep -iE "modesmixer2_rpi4_.*\.tgz" | grep -ioE '<a href=".*">' | grep -ioE '"https:\/\/.*"' | cut -d '"' -f 2 | head -1 | sed 's,/open?,/uc?,g' | sed 's/$/\&export=download/g')
+    URL_MODESMIXER_DOWNLOAD=$(curl "${URL_XDECO_DOWNLOAD}" | grep -iE "modesmixer2_rpi4_.*\.tgz" | grep -ioE '<a href=".*">' | grep -ioE '"https:\/\/.*"' | cut -d '"' -f 2 | head -1)
     apt-get install --no-install-recommends -y libssl1.1
 
 elif [ "$ARCH" = "aarch64" ]
 then
-    URL_MODESMIXER_DOWNLOAD=$(curl "${URL_XDECO_DOWNLOAD}" | grep -iE "modesmixer2_orange-pi-pc2_.*\.tgz" | grep -ioE '<a href=".*">' | grep -ioE '"https:\/\/.*"' | cut -d '"' -f 2 | head -1 | sed 's,/open?,/uc?,g' | sed 's/$/\&export=download/g')
+    URL_MODESMIXER_DOWNLOAD=$(curl "${URL_XDECO_DOWNLOAD}" | grep -iE "modesmixer2_orange-pi-pc2_.*\.tgz" | grep -ioE '<a href=".*">' | grep -ioE '"https:\/\/.*"' | cut -d '"' -f 2 | head -1)
     apt-get install --no-install-recommends -y libssl1.1
     
 else
@@ -98,8 +98,31 @@ fi
 
 echo "========== Installing ModeSMixer2 for ${ARCH} =========="
 
+# Install prerequisites
+apt-get install --no-install-recommends -y \
+  libc6 \
+  libstdc++6
+
+# Get google drive file ID
+if echo "$URL_MODESMIXER_DOWNLOAD" | grep -oP 'open\?id=\K([0-9a-zA-Z\-_])+' > /dev/null 2>&1; then
+  MODESMIXER_GDRIVE_FILE_ID=$(echo "$URL_MODESMIXER_DOWNLOAD" | grep -oP 'open\?id=\K([0-9a-zA-Z\-_])+')
+elif echo "$URL_MODESMIXER_DOWNLOAD" | grep -oP 'drive.google.com\/file\/d\/\K([0-9a-zA-Z\-_])+' > /dev/null 2>&1; then
+  MODESMIXER_GDRIVE_FILE_ID=$(echo "$URL_MODESMIXER_DOWNLOAD" | grep -oP 'drive.google.com\/file\/d\/\K([0-9a-zA-Z\-_])+')
+else
+  echo "ERROR: Could not determine Google Drive file id"
+  exit 1
+fi
+
+# Create a direct download link from gdrive
+URL_MODESMIXER_DOWNLOAD_DIRECT="https://drive.google.com/uc?export=download&id=${MODESMIXER_GDRIVE_FILE_ID}"
+
 # Download & install modesmixer2
-curl --location -o /tmp/modesmixer2.tgz "$URL_MODESMIXER_DOWNLOAD"
+curl --location -o /tmp/modesmixer2.tgz "$URL_MODESMIXER_DOWNLOAD_DIRECT"
+file /tmp/modesmixer2.tgz
 mkdir -p /opt/modesmixer2
 tar xvf /tmp/modesmixer2.tgz -C /opt/modesmixer2
 ln -s /opt/modesmixer2/modesmixer2 /usr/local/bin/modesmixer2
+
+# Test
+set -e
+modesmixer2 --help
