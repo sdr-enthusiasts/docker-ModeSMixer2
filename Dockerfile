@@ -1,4 +1,4 @@
-FROM debian:stable-slim
+FROM debian:testing-slim
 
 ENV URL_XDECO_DOWNLOAD="http://xdeco.org/?page_id=30"
 
