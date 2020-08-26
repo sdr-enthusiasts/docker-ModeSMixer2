@@ -16,14 +16,14 @@ docker buildx use homecluster
 
 # Build & push latest platform specific
 for p in "${LINUX_PLATFORMS[@]}"; do
-  sanitised_p="$(echo $p | tr -d "/")"
-  docker buildx build -t ${REPO}/${IMAGE}:latest_${sanitised_p} --compress --push --platform "linux/$p" .
+  sanitised_p="$(echo "$p" | tr -d "/")"
+  docker buildx build -t "${REPO}/${IMAGE}:latest_${sanitised_p}" --compress --push --platform "linux/$p" .
 done
 
 # Build & push version specific platform specific
 PLATFORM_VERSIONS=()
 for p in "${LINUX_PLATFORMS[@]}"; do
-  sanitised_p="$(echo $p | tr -d "/")"
+  sanitised_p="$(echo "$p" | tr -d "/")"
   case "$p" in
   386 | amd64)
     CONTEXT="x86_64"
@@ -39,10 +39,10 @@ for p in "${LINUX_PLATFORMS[@]}"; do
     exit 1
     ;;
   esac
-  docker --context="$CONTEXT" pull ${REPO}/${IMAGE}:latest_${sanitised_p}
-  VERSION=$(docker --context="$CONTEXT" run --rm --entrypoint cat ${REPO}/${IMAGE}:latest_${sanitised_p} /VERSIONS | grep -i modesmixer2 | cut -d ' ' -f 2 | tr -d ' ')
+  docker --context="$CONTEXT" pull "${REPO}/${IMAGE}:latest_${sanitised_p}"
+  VERSION=$(docker --context="$CONTEXT" run --rm --entrypoint cat "${REPO}/${IMAGE}:latest_${sanitised_p}" /VERSIONS | grep -i modesmixer2 | cut -d ' ' -f 2 | tr -d ' ')
   PLATFORM_VERSIONS+=("$VERSION")
-  docker buildx build -t ${REPO}/${IMAGE}:${VERSION}_${sanitised_p} --compress --push --platform "linux/$p" .
+  docker buildx build -t "${REPO}/${IMAGE}:${VERSION}_${sanitised_p}" --compress --push --platform "linux/$p" .
 done
 
 # Check to see that we have a common version between all platforms
