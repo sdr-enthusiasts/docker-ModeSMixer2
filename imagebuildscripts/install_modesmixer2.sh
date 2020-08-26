@@ -122,3 +122,6 @@ file /tmp/modesmixer2.tgz
 mkdir -p /opt/modesmixer2
 tar xvf /tmp/modesmixer2.tgz -C /opt/modesmixer2
 ln -s /opt/modesmixer2/modesmixer2 /usr/local/bin/modesmixer2
+
+# Test
+modesmixer2 --help
