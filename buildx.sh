@@ -47,7 +47,7 @@ done
 
 # Check to see that we have a common version between all platforms
 for v in "${PLATFORM_VERSIONS[@]}"; do
-  if [[ "$v" != "${PLATFORM_VERSIONS[0]}" ]]; do
+  if [[ "$v" != "${PLATFORM_VERSIONS[0]}" ]]; then
     echo "WARNING: Cannot create multi-arch image, as versions are different between architectures."
     echo "${PLATFORM_VERSIONS[@]}"
     exit 0
