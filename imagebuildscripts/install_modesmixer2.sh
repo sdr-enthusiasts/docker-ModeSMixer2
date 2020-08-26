@@ -104,9 +104,9 @@ apt-get install --no-install-recommends -y \
   libstdc++6
 
 # Get google drive file ID
-if echo $URL_MODESMIXER_DOWNLOAD | grep -oP 'open\?id=\K([0-9a-zA-Z\-_])+' > /dev/null 2>&1; then
+if echo "$URL_MODESMIXER_DOWNLOAD" | grep -oP 'open\?id=\K([0-9a-zA-Z\-_])+' > /dev/null 2>&1; then
   MODESMIXER_GDRIVE_FILE_ID=$(echo "$URL_MODESMIXER_DOWNLOAD" | grep -oP 'open\?id=\K([0-9a-zA-Z\-_])+')
-elif echo $URL_MODESMIXER_DOWNLOAD | grep -oP 'drive.google.com\/file\/d\/\K([0-9a-zA-Z\-_])+' > /dev/null 2>&1; then
+elif echo "$URL_MODESMIXER_DOWNLOAD" | grep -oP 'drive.google.com\/file\/d\/\K([0-9a-zA-Z\-_])+' > /dev/null 2>&1; then
   MODESMIXER_GDRIVE_FILE_ID=$(echo "$URL_MODESMIXER_DOWNLOAD" | grep -oP 'drive.google.com\/file\/d\/\K([0-9a-zA-Z\-_])+')
 else
   echo "ERROR: Could not determine Google Drive file id"
