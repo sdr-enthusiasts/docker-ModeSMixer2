@@ -17,6 +17,7 @@ docker buildx use homecluster
 # Build & push latest platform specific
 for p in "${LINUX_PLATFORMS[@]}"; do
   sanitised_p="$(echo "$p" | tr -d "/")"
+  echo "Attempting build of ${REPO}/${IMAGE}:latest_${sanitised_p}"
   docker buildx build -t "${REPO}/${IMAGE}:latest_${sanitised_p}" --compress --push --platform "linux/$p" .
 done
 
@@ -42,8 +43,17 @@ for p in "${LINUX_PLATFORMS[@]}"; do
   docker --context="$CONTEXT" pull "${REPO}/${IMAGE}:latest_${sanitised_p}"
   VERSION=$(docker --context="$CONTEXT" run --rm --entrypoint cat "${REPO}/${IMAGE}:latest_${sanitised_p}" /VERSIONS | grep -i modesmixer2 | cut -d ' ' -f 2 | tr -d ' ')
   PLATFORM_VERSIONS+=("$VERSION")
+  echo "Attempting build of ${REPO}/${IMAGE}:${VERSION}_${sanitised_p}"
   docker buildx build -t "${REPO}/${IMAGE}:${VERSION}_${sanitised_p}" --compress --push --platform "linux/$p" .
 done
+
+# Build & push latest
+echo "Attempting build of ${REPO}/${IMAGE}:latest"
+docker buildx build -t ${REPO}/${IMAGE}:latest --compress --push --platform "${PLATFORMS}" .
+
+# Get version from latest
+docker pull ${REPO}/${IMAGE}:latest
+VERSION=$(docker run --rm --entrypoint cat ${REPO}/${IMAGE}:latest /VERSIONS | grep -i modesmixer2 | cut -d ' ' -f 2 | tr -d ' ')
 
 # Check to see that we have a common version between all platforms
 for v in "${PLATFORM_VERSIONS[@]}"; do
@@ -54,12 +64,6 @@ for v in "${PLATFORM_VERSIONS[@]}"; do
   fi
 done
 
-# Build & push latest
-docker buildx build -t ${REPO}/${IMAGE}:latest --compress --push --platform "${PLATFORMS}" .
-
-# Get piaware version from latest
-docker pull ${REPO}/${IMAGE}:latest
-VERSION=$(docker run --rm --entrypoint cat ${REPO}/${IMAGE}:latest /VERSIONS | grep -i modesmixer2 | cut -d ' ' -f 2 | tr -d ' ')
-
 # Build & push version-specific
+echo "Attempting build of ${REPO}/${IMAGE}:${VERSION}"
 docker buildx build -t "${REPO}/${IMAGE}:${VERSION}" --compress --push --platform "${PLATFORMS}" .
