@@ -76,14 +76,13 @@ jobs:
           push: ${{ env.PUSH }}
           tags: ${{ env.REPO }}/${{ env.IMAGE }}:latest
 
-      # Get version from "latest"
+      # Get version
       -
-        name: Get latest image version
+        name: Get latest image version from latest commit checksum
         run: |
-          docker pull "${{ env.REPO }}/${{ env.IMAGE }}:latest"
-          echo "VERSION_TAG=$(docker run --rm --entrypoint cat "${{ env.REPO }}/${{ env.IMAGE }}:latest" /CONTAINER_VERSION)" >> $GITHUB_ENV
+          echo "VERSION_TAG=${GITHUB_SHA:1:7}" >> $GITHUB_ENV
 
-      # Show version from "latest"
+      # Show version
       -
         name: Show latest image version
         run: |
@@ -212,14 +211,13 @@ jobs:
           push: ${{ env.PUSH }}
           tags: ${{ env.REPO }}/${{ env.IMAGE }}:latest_${{ env.ARCH_TAG }}
       
-      # Get version from "latest"
+      # Get version
       -
-        name: Get latest image version
+        name: Get latest image version from latest commit checksum
         run: |
-          docker pull "${{ env.REPO }}/${{ env.IMAGE }}:latest_${{ env.ARCH_TAG }}"
-          echo "VERSION_TAG=$(docker run --rm --entrypoint cat "${{ env.REPO }}/${{ env.IMAGE }}:latest_${{ env.ARCH_TAG }}" /CONTAINER_VERSION)" >> $GITHUB_ENV
+          echo "VERSION_TAG=${GITHUB_SHA:1:7}" >> $GITHUB_ENV
 
-      # Show version from "latest"
+      # Show version
       -
         name: Show latest image version
         run: |
