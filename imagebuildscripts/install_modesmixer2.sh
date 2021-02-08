@@ -76,6 +76,12 @@ then
     apt-get update
     apt-get install --no-install-recommends -y libssl1.1
 
+elif [ "$ARCH" = "arm" ]
+then
+    URL_MODESMIXER_DOWNLOAD=$(curl "${URL_XDECO_DOWNLOAD}" | grep -iE "modesmixer2_rpi1_.*\.tgz" | grep -ioE '<a href=".*">' | grep -ioE '"https:\/\/.*"' | cut -d '"' -f 2 | head -1)
+    apt-get update
+    apt-get install --no-install-recommends -y libssl1.1
+
 elif [ "$ARCH" = "armhf" ]
 then
     URL_MODESMIXER_DOWNLOAD=$(curl "${URL_XDECO_DOWNLOAD}" | grep -iE "modesmixer2_rpi4_.*\.tgz" | grep -ioE '<a href=".*">' | grep -ioE '"https:\/\/.*"' | cut -d '"' -f 2 | head -1)
