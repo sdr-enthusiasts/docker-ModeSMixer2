@@ -2,7 +2,8 @@ FROM debian:testing-slim
 
 ENV URL_XDECO_DOWNLOAD="http://xdeco.org/?page_id=30"
 
-COPY imagebuildscripts/install_modesmixer2.sh /tmp/install_modesmixer2.sh
+# Copy container filesystem
+COPY rootfs/ /
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -45,7 +46,7 @@ RUN set -x && \
         && \
     git config --global advice.detachedHead false && \
     # Install ModeSMixer2 & get version
-    /tmp/install_modesmixer2.sh && \
+    bash /scripts/install_modesmixer2.sh && \
     modesmixer2 --help | head -1 >> /VERSIONS || true && \
     # Build readsb-protobuf
     git clone https://github.com/Mictronics/readsb-protobuf.git /src/readsb-protobuf && \
