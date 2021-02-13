@@ -147,10 +147,6 @@ if [[ -n "$MM2_ADD_REFERENCE_POINT" ]]; then
     MM2_CMD+=("--add-reference-point" "$MM2_ADD_REFERENCE_POINT")
 fi
 
-if [[ -n "$MM2_ADD_POINTS" ]]; then
-    MM2_CMD+=("--add-points" "$MM2_ADD_POINTS")
-fi
-
 # Handle "--add-points Lat:Lon:Label ..."
 if [[ -n "$MM2_ADD_POINTS" ]]; then
     MM2_CMD+=("--add-points")
