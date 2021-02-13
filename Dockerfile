@@ -32,6 +32,8 @@ RUN set -x && \
     KEPT_PACKAGES+=(librrd8) && \
     # Dependencies for telegraf
     TEMP_PACKAGES+=(golang) && \
+    # Required for nicer logging.
+    KEPT_PACKAGES+=(gawk) && \
     # Install packages.
     apt-get update && \
     apt-get install \
