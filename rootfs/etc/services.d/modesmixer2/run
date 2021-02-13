@@ -147,9 +147,18 @@ if [[ -n "$MM2_ADD_REFERENCE_POINT" ]]; then
     MM2_CMD+=("--add-reference-point" "$MM2_ADD_REFERENCE_POINT")
 fi
 
-# Handle "--add-points Lat:Lon:Label ..."
 if [[ -n "$MM2_ADD_POINTS" ]]; then
     MM2_CMD+=("--add-points" "$MM2_ADD_POINTS")
+fi
+
+# Handle "--add-points Lat:Lon:Label ..."
+if [[ -n "$MM2_ADD_POINTS" ]]; then
+    MM2_CMD+=("--add-points")
+    IFS=';' read -r -a MM2_ADD_POINTS_ARRAY <<< "$MM2_ADD_POINTS"
+    for MM2_ADD_POINTS_ELEMENT in "${MM2_ADD_POINTS_ARRAY[@]}"
+    do
+        MM2_CMD+=("$MM2_ADD_POINTS_ELEMENT")
+    done
 fi
 
 # Handle "--localtime"
