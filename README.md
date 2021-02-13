@@ -132,6 +132,8 @@ services:
 
 ### ModeSMixer2 Options
 
+The following options control ModeSMixer2's Program options, which are documented at: <http://xdeco.org/?page_id=48>.
+
 | Environment Variable | Controls ModesMixer2 Argument | Notes |
 |-----|-----|-----|
 | `MM2_INCONNECT` | `--inConnect` | Separate multiple values with `;`.<br />For example: `MM2_INCONNECT=192.168.1.10:30005;192.168.1.20:30001`<br />...would be identical to:<br />`--inConnect 192.168.1.10:30005 --inConnect 192.168.1.20:30001` |
