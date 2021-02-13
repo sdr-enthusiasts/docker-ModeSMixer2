@@ -78,4 +78,5 @@ RUN set -x && \
     # Finish
     cat /VERSIONS
 
-ENTRYPOINT [ "/usr/local/bin/modesmixer2" ]
+# Set s6 init as entrypoint
+ENTRYPOINT [ "/init" ]
