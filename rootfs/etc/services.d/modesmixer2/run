@@ -1,0 +1,216 @@
+#!/usr/bin/with-contenv bash
+#shellcheck shell=bash
+
+# Set MM2 binary
+MM2_BIN="/usr/local/bin/modesmixer2"
+
+# Prepare MM2_CMD array
+MM2_CMD=()
+
+# Handle "--inConnect host:port"
+if [[ -n "$MM2_INCONNECT" ]]; then
+    IFS=';' read -r -a MM2_INCONNECT_ARRAY <<< "$MM2_INCONNECT"
+    for MM2_INCONNECT_ELEMENT in "${MM2_INCONNECT_ARRAY[@]}"
+    do
+        MM2_CMD+=("--inConnect" "$MM2_INCONNECT_ELEMENT")
+    done
+fi
+
+# Handle "--inConnectId host:port:id"
+if [[ -n "$MM2_INCONNECTID" ]]; then
+    IFS=';' read -r -a MM2_INCONNECTID_ARRAY <<< "$MM2_INCONNECTID"
+    for MM2_INCONNECTID_ELEMENT in "${MM2_INCONNECTID_ARRAY[@]}"
+    do
+        MM2_CMD+=("--inConnectId" "$MM2_INCONNECTID_ELEMENT")
+    done
+fi
+
+# Handle "--inServer port"
+if [[ -n "$MM2_INSERVER" ]]; then
+    IFS=';' read -r -a MM2_INSERVER_ARRAY <<< "$MM2_INSERVER"
+    for MM2_INSERVER_ELEMENT in "${MM2_INSERVER_ARRAY[@]}"
+    do
+        MM2_CMD+=("--inServer" "$MM2_INSERVER_ELEMENT")
+    done
+fi
+
+# Handle "--inServerId port:id"
+if [[ -n "$MM2_INSERVERID" ]]; then
+    IFS=';' read -r -a MM2_INSERVERID_ARRAY <<< "$MM2_INSERVERID"
+    for MM2_INSERVERID_ELEMENT in "${MM2_INSERVERID_ARRAY[@]}"
+    do
+        MM2_CMD+=("--inServerId" "$MM2_INSERVERID_ELEMENT")
+    done
+fi
+
+# Handle "--inServerUdp port"
+if [[ -n "$MM2_INSERVERUDP" ]]; then
+    IFS=';' read -r -a MM2_INSERVERUDP_ARRAY <<< "$MM2_INSERVERUDP"
+    for MM2_INSERVERUDP_ELEMENT in "${MM2_INSERVERUDP_ARRAY[@]}"
+    do
+        MM2_CMD+=("--inServerUdp" "$MM2_INSERVERUDP_ELEMENT")
+    done
+fi
+
+# Handle "--inSerial port[:speed[:flow_control]]"
+if [[ -n "$MM2_INSERIAL" ]]; then
+    IFS=';' read -r -a MM2_INSERIAL_ARRAY <<< "$MM2_INSERIAL"
+    for MM2_INSERIAL_ELEMENT in "${MM2_INSERIAL_ARRAY[@]}"
+    do
+        MM2_CMD+=("--inSerial" "$MM2_INSERIAL_ELEMENT")
+    done
+fi
+
+# Handle "--outConnect type:host:port"
+if [[ -n "$MM2_OUTCONNECT" ]]; then
+    IFS=';' read -r -a MM2_OUTCONNECT_ARRAY <<< "$MM2_OUTCONNECT"
+    for MM2_OUTCONNECT_ELEMENT in "${MM2_OUTCONNECT_ARRAY[@]}"
+    do
+        MM2_CMD+=("--outConnect" "$MM2_OUTCONNECT_ELEMENT")
+    done
+fi
+
+# Handle "--outConnectId host:port[:name:lat:lon:TEXT:freq]"
+if [[ -n "$MM2_OUTCONNECTID" ]]; then
+    IFS=';' read -r -a MM2_OUTCONNECTID_ARRAY <<< "$MM2_OUTCONNECTID"
+    for MM2_OUTCONNECTID_ELEMENT in "${MM2_OUTCONNECTID_ARRAY[@]}"
+    do
+        MM2_CMD+=("--outConnectId" "$MM2_OUTCONNECTID_ELEMENT")
+    done
+fi
+
+# Handle "--outConnectUdp type:host:port"
+if [[ -n "$MM2_OUTCONNECTUDP" ]]; then
+    IFS=';' read -r -a MM2_OUTCONNECTUDP_ARRAY <<< "$MM2_OUTCONNECTUDP"
+    for MM2_OUTCONNECTUDP_ELEMENT in "${MM2_OUTCONNECTUDP_ARRAY[@]}"
+    do
+        MM2_CMD+=("--outConnectUdp" "$MM2_OUTCONNECTUDP_ELEMENT")
+    done
+fi
+
+# Handle "--outServer type:port"
+if [[ -n "$MM2_OUTSERVER" ]]; then
+    IFS=';' read -r -a MM2_OUTSERVER_ARRAY <<< "$MM2_OUTSERVER"
+    for MM2_OUTSERVER_ELEMENT in "${MM2_OUTSERVER_ARRAY[@]}"
+    do
+        MM2_CMD+=("--outServer" "$MM2_OUTSERVER_ELEMENT")
+    done
+fi
+
+# Handle "--globes port:tablename:stationid"
+if [[ -n "$MM2_GLOBES" ]]; then
+    MM2_CMD+=("--globes" "$MM2_GLOBES")
+fi
+
+# Handle "--web port"
+if [[ -n "$MM2_WEB" ]]; then
+    MM2_CMD+=("--web" "$MM2_WEB")
+fi
+
+# Handle "--web-auth username:password"
+if [[ -n "$MM2_WEB_AUTH" ]]; then
+    MM2_CMD+=("--web-auth" "$MM2_WEB_AUTH")
+fi
+
+# Handle "--disable-web-log"
+if [[ -n "$MM2_DISABLE_WEB_LOG" ]]; then
+    MM2_CMD+=("--disable-web-log")
+fi
+
+# Handle "--silhouettes path"
+if [[ -n "$MM2_SILHOUETTES" ]]; then
+    MM2_CMD+=("--silhouettes" "$MM2_SILHOUETTES")
+fi
+
+# Handle "--pictures path"
+if [[ -n "$MM2_PICTURES" ]]; then
+    MM2_CMD+=("--pictures" "$MM2_PICTURES")
+fi
+
+# Handle "--db path"
+if [[ -n "$MM2_DB" ]]; then
+    MM2_CMD+=("--db" "$MM2_DB")
+fi
+
+# Handle "--frdb path"
+if [[ -n "$MM2_FRDB" ]]; then
+    MM2_CMD+=("--frdb" "$MM2_FRDB")
+fi
+
+# Handle "--location Lat:Lon"
+if [[ -n "$MM2_LOCATION" ]]; then
+    MM2_CMD+=("--location" "$MM2_LOCATION")
+fi
+
+# Handle "--add-reference-point Lat:Lon[:Label]"
+if [[ -n "$MM2_ADD_REFERENCE_POINT" ]]; then
+    MM2_CMD+=("--add-reference-point" "$MM2_ADD_REFERENCE_POINT")
+fi
+
+# Handle "--add-points Lat:Lon:Label ..."
+if [[ -n "$MM2_ADD_POINTS" ]]; then
+    MM2_CMD+=("--add-points" "$MM2_ADD_POINTS")
+fi
+
+# Handle "--localtime"
+if [[ -n "$MM2_LOCALTIME" ]]; then
+    MM2_CMD+=("--localtime")
+fi
+
+# Handle "--filter-expire sec"
+if [[ -n "$MM2_FILTER_EXPIRE" ]]; then
+    MM2_CMD+=("--filter-expire" "$MM2_FILTER_EXPIRE")
+fi
+
+# Handle "--filter-count count"
+if [[ -n "$MM2_FILTER_COUNT" ]]; then
+    MM2_CMD+=("--filter-count" "$MM2_FILTER_COUNT")
+fi
+
+# Handle "--filter-time sec"
+if [[ -n "$MM2_FILTER_TIME" ]]; then
+    MM2_CMD+=("--filter-time" "$MM2_FILTER_TIME")
+fi
+
+# Handle "--filter-nocountry"
+if [[ -n "$MM2_FILTER_NOCOUNTRY" ]]; then
+    MM2_CMD+=("--filter-nocountry")
+fi
+
+# Handle "--filter-ic"
+if [[ -n "$MM2_FILTER_IC" ]]; then
+    MM2_CMD+=("--filter-ic")
+fi
+
+# Handle "--flight-expire-time sec"
+if [[ -n "$MM2_FLIGHT_EXPIRE_TIME" ]]; then
+    MM2_CMD+=("--flight-expire-time" "$MM2_FLIGHT_EXPIRE_TIME")
+fi
+
+# Handle "--log-noconsole"
+if [[ -n "$MM2_LOG_NOCONSOLE" ]]; then
+    MM2_CMD+=("--log-noconsole")
+fi
+
+# Handle "--log-file"
+if [[ -n "$MM2_LOG_FILE" ]]; then
+    MM2_CMD+=("--log-file" "$MM2_LOG_FILE")
+fi
+
+# Handle "--log-level"
+if [[ -n "$MM2_LOG_LEVEL" ]]; then
+    MM2_CMD+=("--log-level" "$MM2_LOG_LEVEL")
+fi
+
+# Handle "--metric"
+if [[ -n "$MM2_METRIC" ]]; then
+    MM2_CMD+=("--metric")
+fi
+
+##### LAUNCH MM2 #####
+
+set -eo pipefail
+
+# shellcheck disable=SC2016
+"${MM2_BIN}" "${MM2_CMD[@]}" \
+  2>&1 | stdbuf -o0 sed --unbuffered '/^$/d' | stdbuf -o0 awk '{print "[ModeSMixer2] " strftime("%Y/%m/%d %H:%M:%S", systime()) " " $0}'
