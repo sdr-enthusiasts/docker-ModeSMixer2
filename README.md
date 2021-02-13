@@ -1,4 +1,4 @@
-# docker-ModeSMixer2
+# mikenye/modesmixer2
 
 ![ModeSMixer2 Logo](http://xdeco.org/wp-content/uploads/2014/11/logo_mm2-300x41.png "ModeSMixer2 Logo")
 
@@ -7,15 +7,6 @@ ModeSMixer2 is versatile console application for combining and rebroadcasting fe
 ModeSMixer2 has ability to receive data via network from Mode-S decoder for RTLSDR devices as [readsb](https://hub.docker.com/r/mikenye/readsb), [dump1090](https://hub.docker.com/r/mikenye/piaware), rtl1090, modesdeco2, ADSB# or some other program producing and outputting Mode-S data over network.
 
 For more info, see the project's website: <http://xdeco.org>.
-
-## Multi Architecture Support
-
-Currently, this image should pull and run on the following architectures:
-
-* `amd64`: Linux x86-64
-* `i386`: Linux x86 (32-bit)
-* `arm32v7`, `armv7l`: ARMv7 32-bit (eg: Odroid HC1/HC2/XU4, RPi 2/3/4)
-* `arm64v8`, `aarch64`: ARMv8 64-bit (eg: RPi 4)
 
 ## Up and Running - `docker run`
 
