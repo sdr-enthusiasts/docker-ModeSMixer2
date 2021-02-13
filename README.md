@@ -8,6 +8,58 @@ ModeSMixer2 has ability to receive data via network from Mode-S decoder for RTLS
 
 For more info, see the project's website: <http://xdeco.org>.
 
+## Recent behaviour changing updates
+
+If you are a first-time user of this container, skip this section.
+
+As-per 13th February 2021, the image now uses environment variables to control the behaviour of ModeSMixer2. If you need the "old" behaviour, simply set the container's entrypoint to `/usr/local/bin/modesmixer2`. Examples follow.
+
+### "Old" Container Behaviour - `docker run`
+
+```
+docker run \
+  -d \
+  --name mm2 \
+  --restart=always \
+  -it \
+  -p 8081:8081 \
+  --entrypoint /usr/local/bin/modesmixer2 \
+  mikenye/modesmixer2:latest \
+    --inConnect=readsb:30005 \
+    --metric \
+    --web=8081 \
+    --location=LAT:LONG
+```
+
+### "Old" Container Behaviour - `docker-compose`
+
+```yaml
+version: '2.0'
+
+networks:
+  adsbnet:
+
+services:
+
+  modesmixer2:
+    image: mikenye/modesmixer2:latest
+    tty: true
+    container_name: mm2
+    restart: always
+    depends_on:
+      - readsb
+    ports:
+      - 8081:8081
+    networks:
+      - adsbnet
+    entrypoint: /usr/local/bin/modesmixer2
+    command:
+      - --inConnect=readsb:30005
+      - --metric
+      - --web=8081
+      - --location=LAT:LONG
+```
+
 ## Up and Running - `docker run`
 
 You can see all `modesmixer2` command line arguments with:
