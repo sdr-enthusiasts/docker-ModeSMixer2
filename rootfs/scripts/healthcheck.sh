@@ -1,5 +1,5 @@
 #!/usr/bin/with-contenv bash
-#shellcheck shell=bash
+# shellcheck shell=bash
 
 if [[ -n "$VERBOSE_LOGGING" ]]; then
     set -x
@@ -9,6 +9,7 @@ fi
 EXITCODE=0
 
 # Import healthchecks-framework
+# shellcheck disable=SC1091
 source /opt/healthchecks-framework/healthchecks.sh
 
 # Handle "--inConnect host:port"
@@ -120,8 +121,8 @@ if [[ -n "$MM2_OUTCONNECTUDP" ]]; then
     IFS=';' read -r -a MM2_OUTCONNECTUDP_ARRAY <<< "$MM2_OUTCONNECTUDP"
     for MM2_OUTCONNECTUDP_ELEMENT in "${MM2_OUTCONNECTUDP_ARRAY[@]}"
     do
-        HOST=$(echo "$MM2_OUTCONNECTID_ELEMENT" | cut -d ':' -f 2)
-        PORT=$(echo "$MM2_OUTCONNECTID_ELEMENT" | cut -d ':' -f 3)
+        HOST=$(echo "$MM2_OUTCONNECTUDP_ELEMENT" | cut -d ':' -f 2)
+        PORT=$(echo "$MM2_OUTCONNECTUDP_ELEMENT" | cut -d ':' -f 3)
         IP=$(get_ipv4 "$HOST")
         if ! check_udp4_connection_established ANY ANY "$IP" "$PORT"; then
             EXITCODE=1
