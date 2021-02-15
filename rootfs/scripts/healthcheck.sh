@@ -47,6 +47,9 @@ if [[ -n "$MM2_INSERVER" ]]; then
         if ! check_tcp4_socket_listening ANY "$MM2_INSERVER_ELEMENT"; then
             EXITCODE=1
         fi
+        if ! check_tcp4_connection_established ANY "$MM2_INSERVER_ELEMENT" ANY ANY; then
+            EXITCODE=1
+        fi
     done
 fi
 
@@ -59,6 +62,9 @@ if [[ -n "$MM2_INSERVERID" ]]; then
         if ! check_tcp4_socket_listening ANY "$PORT"; then
             EXITCODE=1
         fi
+        if ! check_tcp4_connection_established ANY "$PORT" ANY ANY; then
+            EXITCODE=1
+        fi
     done
 fi
 
@@ -68,6 +74,9 @@ if [[ -n "$MM2_INSERVERUDP" ]]; then
     for MM2_INSERVERUDP_ELEMENT in "${MM2_INSERVERUDP_ARRAY[@]}"
     do
         if ! check_udp4_socket_listening ANY "$MM2_INSERVERUDP_ELEMENT"; then
+            EXITCODE=1
+        fi
+        if ! check_udp4_connection_established ANY "$MM2_INSERVERUDP_ELEMENT" ANY ANY; then
             EXITCODE=1
         fi
     done
@@ -124,6 +133,9 @@ if [[ -n "$MM2_OUTSERVER" ]]; then
         if ! check_tcp4_socket_listening ANY "$PORT"; then
             EXITCODE=1
         fi
+        if ! check_tcp4_connection_established ANY "$PORT" ANY ANY; then
+            EXITCODE=1
+        fi
     done
 fi
 
@@ -133,10 +145,5 @@ if [[ -n "$MM2_WEB" ]]; then
         EXITCODE=1
     fi
 fi
-
-# # Handle "--web-auth username:password"
-# if [[ -n "$MM2_WEB_AUTH" ]]; then
-#     MM2_CMD+=("--web-auth" "$MM2_WEB_AUTH")
-# fi
 
 exit "$EXITCODE"
