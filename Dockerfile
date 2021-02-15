@@ -95,3 +95,6 @@ RUN set -x && \
 
 # Set s6 init as entrypoint
 ENTRYPOINT [ "/init" ]
+
+# Add healthcheck
+HEALTHCHECK --start-period=3600s --interval=600s CMD /scripts/healthcheck.sh
