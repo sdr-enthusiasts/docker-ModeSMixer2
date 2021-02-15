@@ -155,7 +155,7 @@ fi
 
 # Check service abnormal deathcounts
 >&2 echo "Checking service abnormal death counts..."
-if ! check_s6_service_abnormal_deathcount ALL; then
+if ! check_s6_service_abnormal_death_tally ALL; then
     EXITCODE=1
 fi
 
