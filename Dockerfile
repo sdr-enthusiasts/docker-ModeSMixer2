@@ -34,6 +34,8 @@ RUN set -x && \
     TEMP_PACKAGES+=(golang) && \
     # Required for nicer logging.
     KEPT_PACKAGES+=(gawk) && \
+    # Required for healthchecks
+    KEPT_PACKAGES+=(net-tools) && \
     # Install packages.
     apt-get update && \
     apt-get install \
