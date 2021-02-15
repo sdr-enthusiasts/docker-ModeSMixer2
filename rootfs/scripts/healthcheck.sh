@@ -76,9 +76,6 @@ if [[ -n "$MM2_INSERVERUDP" ]]; then
         if ! check_udp4_socket_listening ANY "$MM2_INSERVERUDP_ELEMENT"; then
             EXITCODE=1
         fi
-        # if ! check_udp4_connection_established ANY "$MM2_INSERVERUDP_ELEMENT" ANY ANY; then
-        #     EXITCODE=1
-        # fi
     done
 fi
 
