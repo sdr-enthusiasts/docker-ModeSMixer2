@@ -14,7 +14,7 @@ source /opt/healthchecks-framework/healthchecks.sh
 
 # Handle "--inConnect host:port"
 if [[ -n "$MM2_INCONNECT" ]]; then
-    >&2 echo "Checking --inConnect connections..."
+    >&2 echo "== Checking --inConnect connections... =="
     IFS=';' read -r -a MM2_INCONNECT_ARRAY <<< "$MM2_INCONNECT"
     for MM2_INCONNECT_ELEMENT in "${MM2_INCONNECT_ARRAY[@]}"
     do
@@ -29,7 +29,7 @@ fi
 
 # Handle "--inConnectId host:port:id"
 if [[ -n "$MM2_INCONNECTID" ]]; then
-    >&2 echo "Checking --inConnectId connections..."
+    >&2 echo "== Checking --inConnectId connections... =="
     IFS=';' read -r -a MM2_INCONNECTID_ARRAY <<< "$MM2_INCONNECTID"
     for MM2_INCONNECTID_ELEMENT in "${MM2_INCONNECTID_ARRAY[@]}"
     do
@@ -44,7 +44,7 @@ fi
 
 # Handle "--inServer port"
 if [[ -n "$MM2_INSERVER" ]]; then
-    >&2 echo "Checking --inServer listening & connections..."
+    >&2 echo "== Checking --inServer listening & connections... =="
     IFS=';' read -r -a MM2_INSERVER_ARRAY <<< "$MM2_INSERVER"
     for MM2_INSERVER_ELEMENT in "${MM2_INSERVER_ARRAY[@]}"
     do
@@ -59,7 +59,7 @@ fi
 
 # Handle "--inServerId port:id"
 if [[ -n "$MM2_INSERVERID" ]]; then
-    >&2 echo "Checking --inServerId listening & connections..."
+    >&2 echo "== Checking --inServerId listening & connections... =="
     IFS=';' read -r -a MM2_INSERVERID_ARRAY <<< "$MM2_INSERVERID"
     for MM2_INSERVERID_ELEMENT in "${MM2_INSERVERID_ARRAY[@]}"
     do
@@ -75,7 +75,7 @@ fi
 
 # Handle "--inServerUdp port"
 if [[ -n "$MM2_INSERVERUDP" ]]; then
-    >&2 echo "Checking --inServerUdp listening..."
+    >&2 echo "== Checking --inServerUdp listening... =="
     IFS=';' read -r -a MM2_INSERVERUDP_ARRAY <<< "$MM2_INSERVERUDP"
     for MM2_INSERVERUDP_ELEMENT in "${MM2_INSERVERUDP_ARRAY[@]}"
     do
@@ -87,7 +87,7 @@ fi
 
 # Handle "--outConnect type:host:port"
 if [[ -n "$MM2_OUTCONNECT" ]]; then
-    >&2 echo "Checking --outConnect connections..."
+    >&2 echo "== Checking --outConnect connections... =="
     IFS=';' read -r -a MM2_OUTCONNECT_ARRAY <<< "$MM2_OUTCONNECT"
     for MM2_OUTCONNECT_ELEMENT in "${MM2_OUTCONNECT_ARRAY[@]}"
     do
@@ -102,7 +102,7 @@ fi
 
 # Handle "--outConnectId host:port[:name:lat:lon:TEXT:freq]"
 if [[ -n "$MM2_OUTCONNECTID" ]]; then
-    >&2 echo "Checking --outConnectId connections..."
+    >&2 echo "== Checking --outConnectId connections... =="
     IFS=';' read -r -a MM2_OUTCONNECTID_ARRAY <<< "$MM2_OUTCONNECTID"
     for MM2_OUTCONNECTID_ELEMENT in "${MM2_OUTCONNECTID_ARRAY[@]}"
     do
@@ -117,7 +117,7 @@ fi
 
 # Handle "--outConnectUdp type:host:port"
 if [[ -n "$MM2_OUTCONNECTUDP" ]]; then
-    >&2 echo "Checking --outConnectUdp connections..."
+    >&2 echo "== Checking --outConnectUdp connections... =="
     IFS=';' read -r -a MM2_OUTCONNECTUDP_ARRAY <<< "$MM2_OUTCONNECTUDP"
     for MM2_OUTCONNECTUDP_ELEMENT in "${MM2_OUTCONNECTUDP_ARRAY[@]}"
     do
@@ -132,7 +132,7 @@ fi
 
 # Handle "--outServer type:port"
 if [[ -n "$MM2_OUTSERVER" ]]; then
-    >&2 echo "Checking --outServer listening & connections..."
+    >&2 echo "== Checking --outServer listening & connections... =="
     IFS=';' read -r -a MM2_OUTSERVER_ARRAY <<< "$MM2_OUTSERVER"
     for MM2_OUTSERVER_ELEMENT in "${MM2_OUTSERVER_ARRAY[@]}"
     do
@@ -148,14 +148,14 @@ fi
 
 # Handle "--web port"
 if [[ -n "$MM2_WEB" ]]; then
-    >&2 echo "Checking --web listening..."
+    >&2 echo "== Checking --web listening... =="
     if ! check_tcp4_socket_listening ANY "$MM2_WEB"; then
         EXITCODE=1
     fi
 fi
 
 # Check service abnormal deathcounts
->&2 echo "Checking service abnormal death counts..."
+>&2 echo "== Checking service abnormal death counts... =="
 if ! check_s6_service_abnormal_death_tally ALL; then
     EXITCODE=1
 fi
