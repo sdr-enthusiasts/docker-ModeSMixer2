@@ -34,6 +34,8 @@ RUN set -x && \
     TEMP_PACKAGES+=(golang) && \
     # Required for nicer logging.
     KEPT_PACKAGES+=(gawk) && \
+    # Required for healthchecks
+    KEPT_PACKAGES+=(net-tools) && \
     # Install packages.
     apt-get update && \
     apt-get install \
@@ -71,6 +73,17 @@ RUN set -x && \
     # Deploy s6-overlay
     curl -o /tmp/deploy-s6-overlay.sh --location https://raw.githubusercontent.com/mikenye/deploy-s6-overlay/master/deploy-s6-overlay.sh && \
     bash /tmp/deploy-s6-overlay.sh && \
+    # Deploy healthchecks framework
+    git clone \
+      --depth=1 \
+      https://github.com/mikenye/docker-healthchecks-framework.git \
+      /opt/healthchecks-framework \
+      && \
+    rm -rf \
+      /opt/healthchecks-framework/.git* \
+      /opt/healthchecks-framework/*.md \
+      /opt/healthchecks-framework/tests \
+      && \
     # Clean up
     apt-get remove -y ${TEMP_PACKAGES[@]} && \
     apt-get autoremove -y && \
@@ -82,3 +95,6 @@ RUN set -x && \
 
 # Set s6 init as entrypoint
 ENTRYPOINT [ "/init" ]
+
+# Add healthcheck
+HEALTHCHECK --start-period=3600s --interval=600s CMD /scripts/healthcheck.sh
