@@ -212,6 +212,16 @@ if [[ -n "$MM2_METRIC" ]]; then
     MM2_CMD+=("--metric")
 fi
 
+# Handle "--google-key"
+if [[ -n "$MM2_GOOGLE_KEY" ]]; then
+    MM2_CMD+=("--google-key" "$MM2_GOOGLE_KEY")
+fi
+
+# Handle "--valid"
+if [[ -n "$MM2_VALID" ]]; then
+    MM2_CMD+=("--vaild" "$MM2_VALID")
+fi
+
 ##### LAUNCH MM2 #####
 
 set -eo pipefail
