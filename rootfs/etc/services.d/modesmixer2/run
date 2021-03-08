@@ -219,7 +219,7 @@ fi
 
 # Handle "--valid"
 if [[ -n "$MM2_VALID" ]]; then
-    MM2_CMD+=("--vaild" "$MM2_VALID")
+    MM2_CMD+=("--valid-adsb" "$MM2_VALID")
 fi
 
 ##### LAUNCH MM2 #####
