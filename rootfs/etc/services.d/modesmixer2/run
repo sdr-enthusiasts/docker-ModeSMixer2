@@ -217,9 +217,9 @@ if [[ -n "$MM2_GOOGLE_KEY" ]]; then
     MM2_CMD+=("--google-key" "$MM2_GOOGLE_KEY")
 fi
 
-# Handle "--valid"
-if [[ -n "$MM2_VALID" ]]; then
-    MM2_CMD+=("--valid-adsb" "$MM2_VALID")
+# Handle "--valid-adsb"
+if [[ -n "$MM2_VALID_ADSB" ]]; then
+    MM2_CMD+=("--valid-adsb" "$MM2_VALID_ADSB")
 fi
 
 ##### LAUNCH MM2 #####
