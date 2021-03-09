@@ -161,6 +161,7 @@ The following options control ModeSMixer2's Program options, which are documente
 | `MM2_FILTER_EXPIRE` | `--filter-expire` | |
 | `MM2_FILTER_COUNT` | `--filter-count` | |
 | `MM2_FILTER_TIME` | `--filter-time` | |
+| `MM2_VALID_ADSB` | `--valid-adsb` | |
 | `MM2_FILTER_NOCOUNTRY` | `--filter-nocountry` | Set to any value to apply the `--filter-nocountry` argument to ModeSMixer2 |
 | `MM2_FILTER_IC` | `--filter-ic` | Set to any value to apply the `--filter-ic` argument to ModeSMixer2 |
 | `MM2_FLIGHT_EXPIRE_TIME` | `--flight-expire-time` | |
