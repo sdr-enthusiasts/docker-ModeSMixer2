@@ -69,7 +69,7 @@ RUN set -x && \
     make && \
     popd && \
     # Clean-up after go
-    rm -rf /root/go && \
+    rm -rf /root/go /root/.cache && \
     # Install telegraf - Copy executables to /usr/local/bin/.
     find "/src/telegraf" -maxdepth 1 -executable -type f -exec cp -v {} /usr/local/bin/ \; && \
     # Deploy s6-overlay
