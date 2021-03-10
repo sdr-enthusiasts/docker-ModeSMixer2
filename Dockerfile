@@ -68,6 +68,8 @@ RUN set -x && \
     git checkout "$BRANCH_TELEGRAF" && \
     make && \
     popd && \
+    # Clean-up after go
+    rm -rf /root/go && \
     # Install telegraf - Copy executables to /usr/local/bin/.
     find "/src/telegraf" -maxdepth 1 -executable -type f -exec cp -v {} /usr/local/bin/ \; && \
     # Deploy s6-overlay
