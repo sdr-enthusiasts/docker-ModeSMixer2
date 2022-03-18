@@ -8,6 +8,12 @@ ModeSMixer2 has ability to receive data via network from Mode-S decoder for RTLS
 
 For more info, see the project's website: <http://xdeco.org>.
 
+## Deprecated?
+
+Sadly, as of early 2022, it looks like <http://xdeco.org> is no longer online.
+
+The images will remain on [hub.docker.com](https://hub.docker.com/r/mikenye/modesmixer2) until they age out.
+
 ## Recent behaviour changing updates
 
 If you are a first-time user of this container, skip this section.
